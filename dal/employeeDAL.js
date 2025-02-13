@@ -168,7 +168,7 @@ exports.submitReuploadDocmentdetails = (data, userID) =>
       // const query1 = `update "documentTbl" set "docName"='${data.documentName}', "docPath"='${data.documentFileUrl}', "Remark"='${data.description}',"reuploadTime"='NOW()' where "RequestStatus" IS NULL OR "RequestStatus" = '0' and "userId"='${userID}' and "docId"='${docId}';`;
       const query1 = `INSERT INTO public."documentTbl"(
 	    "userId", "docId", "docName", "docPath", "docStatus", "DateTime", "Remark")
-	    VALUES ('${userID}', '${docId}', '${data.documentName}', '${data.documentFileUrl}', NOW(), '${data.description}');`
+	    VALUES ('${userID}', '${data.docId}', '${data.documentName}', '${data.documentFileUrl}', NOW(), '${data.description}');`
       const response1 = await client.query(query1);
       await client.query("commit");
       resolve(true);
