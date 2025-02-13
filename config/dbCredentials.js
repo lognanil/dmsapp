@@ -1,5 +1,5 @@
 const dbCredentials = () => {
-  const encodedUser = "cG9zdGdyZQ=="; //postgre
+  const encodedUser = "cG9zdGdyZQ=="; //postgre // updated
   const encodedHost = "ZHBnLWN1bTQ1azU2bDQ3YzczOTRkYWxnLWE="; // dpg-cum45k56l47c7394dalg-a
   const enCodedDatabase = "dGVzdF9xeHRj"; // test_qxtc
   const encodedPassword = "QkV2eE5zbmExZFE4YzllV2w0R29iR0h2ZGRLODhCWW4="; // BEvxNsna1dQ8c9eWl4GobGHvddK88BYn
