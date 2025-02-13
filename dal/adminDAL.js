@@ -151,8 +151,11 @@ exports.verifiedData = ({ data }) =>
       reject(new Error(`Unable to connect to the database: ${err}`));
     });
     try {
+      console.log(data,'permissionStatuspermissionStatus')
       const query = `UPDATE "documentTbl" SET "permissionStatus"= '0' WHERE "userId"='${data}';`;
+      console.log(query,'queryquery')
       const response = await client.query(query);
+      console.log(response,'responseresponse')
       await client.query("commit");
       resolve(true);
     } catch (e) {

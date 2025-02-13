@@ -8,6 +8,7 @@ router.post("/submitDocmentdetails", employeeBAL.submitDocmentdetails);
 router.get("/getDocumentDetails", employeeBAL.getDocumentDetails);
 router.post("/requestData", employeeBAL.requestData);
 router.post("/submitReuploadDocmentdetails", employeeBAL.submitReuploadDocmentdetails);
+router.post("/submitReuploadDocment", employeeBAL.submitReuploadDocment);
 router.get("/getdeptidData", employeeBAL.getdeptidData);
 router.get("/getredeptidData", employeeBAL.getredeptidData);
 module.exports = router;

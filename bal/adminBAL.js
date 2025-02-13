@@ -104,7 +104,7 @@ exports.getViewDetails = async (req, res) => {
 
 exports.verifiedData = async (req, res) => {
   try {
-    const result = await adminDAL.verifiedData(req.params);
+    const result = await adminDAL.verifiedData(req.query);
     res.send(result);
   } catch (e) {
     res.status(500).send(e);

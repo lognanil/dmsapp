@@ -7,7 +7,7 @@ router.get("/getDeptDetails", adminBAL.getDeptDetails);
 router.get("/getPermissionDetails", adminBAL.getPermissionDetails);
 router.get("/activeData", adminBAL.activeData);
 router.get("/getViewDetails", adminBAL.getViewDetails);
-router.get("/verifiedData/:data", adminBAL.verifiedData);
+router.get("/verifiedData", adminBAL.verifiedData);
 router.get("/remarkData/:data/:remarkData/:docId", adminBAL.remarkData);
 router.get("/getReamrkDetails", adminBAL.getReamrkDetails);
 router.get("/getRequestDetails", adminBAL.getRequestDetails);

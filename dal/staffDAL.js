@@ -180,7 +180,7 @@ exports.getredeptidData = (userID) =>
       reject(new Error(`Unable to connect to the database: ${err}`));
     });
     try {
-      const query = `select * from  "documentTbl" a left join "Registration" b on a."userId"=b."userId" where b."permissionStatus" is not null and  b."userId"='${userID}'`
+      const query = `select * from  "documentTbl" a left join "Registration" b on a."userId"=b."userId" where a."permissionStatus" is not null and  b."userId"='${userID}'`
       const response = await client.query(query);
       resolve(response.rows);
     } catch (e) {
@@ -199,7 +199,34 @@ exports.submitReuploadDocmentdetails = (data, userID) =>
     });
     try {
       await client.query("begin");
-      const query1 = `update "documentTbl" set "docName"='${data.documentName}', "docPath"='${data.documentFileUrl}', "Remark"='${data.description}',"reuploadTime"='NOW()' where "RequestStatus" IS NULL OR "RequestStatus" = '0' and "userId"='${userID}' and "docId"='${docId}';`;
+      // const query1 = `update "documentTbl" set "docName"='${data.documentName}', "docPath"='${data.documentFileUrl}', "Remark"='${data.description}',"reuploadTime"='NOW()' where "RequestStatus" IS NULL OR "RequestStatus" = '0' and "userId"='${userID}' and "docId"='${docId}';`;
+     const query1 =`INSERT INTO public."documentTbl"(
+	   "userId", "docId", "docName", "docPath", "DateTime", "Remark")
+	   VALUES ('${userID}', '${docId}', '${data.documentName}', '${data.documentFileUrl}', NOW(), '${data.description}'); `
+      const response1 = await client.query(query1);
+      await client.query("commit");
+      resolve(true);
+    } catch (e) {
+      await client.query("rollback");
+      reject(new Error(`Oops! An error occurred: ${e}`));
+    } finally {
+      client.release();
+    }
+  });
+
+
+
+
+  
+exports.submitReuploadDocment = (data, userID) =>
+  new Promise(async (resolve, reject) => {
+    const client = await pool.connect().catch((err) => {
+      reject(new Error(`Unable to connect to the database: ${err}`));
+    });
+    try {
+      await client.query("begin");
+      console.log(data,'datadata')
+      const query1 = `update "documentTbl" set "docName"='${data.documentName}', "docPath"='${data.documentFileUrl}', "Remark"='${data.description}',"reuploadTime"='NOW()' where "RequestStatus" IS NULL OR "RequestStatus" = '0' and "userId"='${userID}' and "docId"='${data.docId}';`;
       const response1 = await client.query(query1);
       await client.query("commit");
       resolve(true);
