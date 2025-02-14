@@ -114,7 +114,7 @@ exports.verifiedData = async (req, res) => {
 
 exports.remarkData = async (req, res) => {
   try {
-    const result = await adminDAL.remarkData(req.params);
+    const result = await adminDAL.remarkData(req.query);
     res.send(result);
   } catch (e) {
     res.status(500).send(e);

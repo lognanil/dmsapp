@@ -151,7 +151,6 @@ exports.verifiedData = ({ data }) =>
       reject(new Error(`Unable to connect to the database: ${err}`));
     });
     try {
-      console.log(data,'permissionStatuspermissionStatus')
       const query = `UPDATE "documentTbl" SET "permissionStatus"= '0' WHERE "userId"='${data}';`;
       console.log(query,'queryquery')
       const response = await client.query(query);
@@ -171,7 +170,6 @@ exports.remarkData = ({ data,remarkData,docId }) =>
       reject(new Error(`Unable to connect to the database: ${err}`));
     });
     try {
-      console.log(data,remarkData,docId )
       const query = `UPDATE "documentTbl" SET "permissionStatus"= '1',"Remark"='${remarkData}' WHERE "userId"='${data}' and "docId"='${docId}';`;
       console.log(query,'query')
       const response = await client.query(query);

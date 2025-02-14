@@ -43,9 +43,7 @@ exports.getUserDetails = (userID) =>
       reject(new Error(`Unable to connect to the database: ${err}`));
     });
     try {
-     
-      let query =  `SELECT "UserID","PasswordHash", b."RoleName", "AccessFailedCount", "IsLoggedIn", "Status" from "UserLogin" a inner join "UserRole" b on a."RoleID" = b."RoleID" where "UserID"= $1`;
-      
+      let query =  `SELECT "UserID","PasswordHash", b."RoleName", "AccessFailedCount", "IsLoggedIn", "Status" from "UserLogin" a inner join "UserRole" b on a."RoleID" = b."RoleID" where "UserID"= $1 and a."Status"=true`;
       const values = [userID];
       const response = await client.query(query, values);
       resolve(response.rows);
