@@ -44,7 +44,6 @@ exports.submitDoc = (data) =>
     });
     // When the admin enters a user's document, the document's status is null.
     try {
-      console.log(data,'Employee')
       await client.query("begin");
       const query1 = `INSERT INTO public."Registration"("userId", "userName", "userEmail", "userTypeId", "userDeptId", "userContactNo", "userAltContactNo", "userPanNo", "userPassportNo", "userPassword", "userEmployeeId","Status","DateTime")
 	    VALUES ('${data.employeeId}', '${data.Name}', '${data.Email}',  '${data.userType}','${data.department}' , '${data.contactNumber}',  '${data.alternateNumber}', '${data.pancard}', '${data.passport}','${data.confirmPassword}', '${data.employeeId}','0',NOW());`;

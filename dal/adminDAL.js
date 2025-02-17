@@ -152,9 +152,7 @@ exports.verifiedData = ({ data }) =>
     });
     try {
       const query = `UPDATE "documentTbl" SET "permissionStatus"= '0' WHERE "userId"='${data}';`;
-      console.log(query,'queryquery')
       const response = await client.query(query);
-      console.log(response,'responseresponse')
       await client.query("commit");
       resolve(true);
     } catch (e) {
@@ -171,9 +169,7 @@ exports.remarkData = ({ data,remarkData,docId }) =>
     });
     try {
       const query = `UPDATE "documentTbl" SET "permissionStatus"= '1',"Remark"='${remarkData}' WHERE "userId"='${data}' and "docId"='${docId}';`;
-      console.log(query,'query')
       const response = await client.query(query);
-      console.log(response);
       await client.query("commit");
       resolve(true);
     } catch (e) {

@@ -83,7 +83,7 @@ exports.getPermissionDetails = async (req, res) => {
 
 exports.activeData = async (req, res) => {
   try {
-    console.log(req.query,'req.paramsreq.params')
+   
     const result = await adminDAL.activeData(req.query);
     res.send(result);
   } catch (e) {
@@ -215,7 +215,6 @@ exports.gettotalDocument = async (req, res) => {
 
 exports.disableUserData = async (req, res) => {
   try {
-    console.log(req.query,'req.paramsreq.params')
     const result = await adminDAL.disableUserData(req.query);
     res.send(result);
   } catch (e) {

@@ -82,7 +82,6 @@ exports.submitDocmentdetails = (data, userID) =>
       reject(new Error(`Unable to connect to the database: ${err}`));
     });
     try {
-      console.log(data,'userrrrr');
       await client.query("begin");
       const query1 = `INSERT INTO public."documentTbl"(
 	   "userId", "docName", "docPath", "docStatus", "DateTime", "Remark","docId")
@@ -141,7 +140,6 @@ exports.getDocumentDetails = (userID) =>
       try {
         await client.query("begin");
         const query1 = `update "documentTbl" set "RequestMsg"='${data.reply}',"RequestStatus"='0',"requestDateTime"='NOW()' where "userId"='${userID}' and "docId"='${data.id}'`;
-        console.log(query1, 'query1')
         const response1 = await client.query(query1);
         await client.query("commit");
         resolve(true);
@@ -225,7 +223,6 @@ exports.submitReuploadDocment = (data, userID) =>
     });
     try {
       await client.query("begin");
-      console.log(data,'datadata')
       const query1 = `update "documentTbl" set "docName"='${data.documentName}', "docPath"='${data.documentFileUrl}', "Remark"='${data.description}',"reuploadTime"='NOW()' where "RequestStatus" IS NULL OR "RequestStatus" = '0' and "userId"='${userID}' and "docId"='${data.docId}';`;
       const response1 = await client.query(query1);
       await client.query("commit");

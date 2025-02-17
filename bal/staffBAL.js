@@ -183,7 +183,7 @@ exports.submitReuploadDocmentdetails = async (req, res) => {
     ]);
     upload(req, res, async err => {
       if (err) throw err;
-      console.log(req.body,'req.boooooooooooooooooooooooooooooo')
+     
       let mdata = JSON.parse(req.body.value);
       if (req.files.documentFile != undefined) {
         mdata.documentFileUrl = req.files.documentFile[0].path.replace('public', url);
