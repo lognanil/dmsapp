@@ -85,6 +85,8 @@ exports.signIn = async (req, res) => {
   try {
     if (req.body.captcha === req.session.captcha) {
       const result = await authDAL.getUserDetails(req.body.userID);
+      console.log('result', result);
+      
       if (result.length > 0) {
        
         if (
@@ -94,9 +96,13 @@ exports.signIn = async (req, res) => {
           req.session.role = result[0].RoleName;
           req.session.userID = req.body.userID;
           req.session.username = result[0].Username;
+          req.session.name = result[0].name;
           req.session.cookie.maxAge = 1800000;
           req.session.salt = generateRandomNumber();
           const tempSession = req.session;
+
+       console.log('session', req.session);
+
           req.session.regenerate((err) => {
             Object.assign(req.session, tempSession);
           });
@@ -119,6 +125,7 @@ exports.signIn = async (req, res) => {
             res.send({
               username: req.session.userID,
               role: req.session.role,
+              name: req.session.name,
               message: true,
             });
           });

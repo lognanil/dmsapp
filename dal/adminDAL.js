@@ -241,3 +241,117 @@ exports.approveRequest = ({ data}) =>
 });
 
 
+
+exports.totalCount = () =>
+  new Promise(async (resolve, reject) => {
+    const client = await pool.connect().catch((err) => {
+      reject(new Error(`Unable to connect to the database: ${err}`));
+    });
+    try {
+      const query = `SELECT count(a."userId") as total from "Registration" a`;
+      const response = await client.query(query);
+      resolve(response.rows);
+    } catch (e) {
+      reject(new Error(`Oops! An error occurred: ${e}`));
+    } finally {
+      client.release();
+    }
+  });
+
+
+
+  
+exports.activeDataCount = () =>
+  new Promise(async (resolve, reject) => {
+    const client = await pool.connect().catch((err) => {
+      reject(new Error(`Unable to connect to the database: ${err}`));
+    });
+    try {
+      const query = `SELECT count("UserID")  as active from "UserLogin" where "Status" = true;`;
+      const response = await client.query(query);
+      resolve(response.rows);
+    } catch (e) {
+      reject(new Error(`Oops! An error occurred: ${e}`));
+    } finally {
+      client.release();
+    }
+  });
+
+
+
+
+  
+exports.inActiveDataCount = () =>
+  new Promise(async (resolve, reject) => {
+    const client = await pool.connect().catch((err) => {
+      reject(new Error(`Unable to connect to the database: ${err}`));
+    });
+    try {
+      const query = `SELECT count("UserID") as inactive from "UserLogin" where "Status" = false;`;
+      const response = await client.query(query);
+      resolve(response.rows);
+    } catch (e) {
+      reject(new Error(`Oops! An error occurred: ${e}`));
+    } finally {
+      client.release();
+    }
+  });
+
+
+
+  
+exports.gettotalStaff = () =>
+  new Promise(async (resolve, reject) => {
+    const client = await pool.connect().catch((err) => {
+      reject(new Error(`Unable to connect to the database: ${err}`));
+    });
+    try {
+      const query = `select b."deptName",count(a."userDeptId") as staffData from public."Registration" a
+      inner join public."Dept" b on b."deptId" = a."userDeptId" group by b."deptName";`;
+      const response = await client.query(query);
+      resolve(response.rows);
+    } catch (e) {
+      reject(new Error(`Oops! An error occurred: ${e}`));
+    } finally {
+      client.release();
+    }
+  });
+
+
+
+  
+exports.gettotalDocument = () =>
+  new Promise(async (resolve, reject) => {
+    const client = await pool.connect().catch((err) => {
+      reject(new Error(`Unable to connect to the database: ${err}`));
+    });
+    try {
+      const query = `select "docName",count("documentTbl"."docId") as docid from "documentTbl" group by "docName";`;
+      const response = await client.query(query);
+      resolve(response.rows);
+    } catch (e) {
+      reject(new Error(`Oops! An error occurred: ${e}`));
+    } finally {
+      client.release();
+    }
+  });
+
+
+
+  
+exports.disableUserData = ({ data }) =>
+  new Promise(async (resolve, reject) => {
+    const client = await pool.connect().catch((err) => {
+      reject(new Error(`Unable to connect to the database: ${err}`));
+    });
+    try {
+      const query = `UPDATE public."UserLogin" SET  "IsLoggedIn"=false, "Status"=false WHERE "UserID"='${data}';`;
+      const response = await client.query(query);
+      await client.query("commit");
+      resolve(true);
+    } catch (e) {
+      reject(new Error(`Oops! An error occurred: ${e}`));
+    } finally {
+      client.release();
+    }
+});

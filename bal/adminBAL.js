@@ -153,3 +153,73 @@ exports.approveRequest = async (req, res) => {
 };
 
 
+
+exports.totalCount = async (req, res) => {
+  try {
+    const result = await adminDAL.totalCount();
+    res.send(result);
+  } catch (e) {
+    res.status(500).send(e);
+    throw e;
+  }
+};
+
+
+exports.activeDataCount = async (req, res) => {
+  try {
+    const result = await adminDAL.activeDataCount();
+    res.send(result);
+  } catch (e) {
+    res.status(500).send(e);
+    throw e;
+  }
+};
+
+
+exports.inActiveDataCount = async (req, res) => {
+  try {
+    const result = await adminDAL.inActiveDataCount();
+    res.send(result);
+  } catch (e) {
+    res.status(500).send(e);
+    throw e;
+  }
+};
+
+
+
+exports.gettotalStaff = async (req, res) => {
+  try {
+    const result = await adminDAL.gettotalStaff();
+    res.send(result);
+  } catch (e) {
+    res.status(500).send(e);
+    throw e;
+  }
+};
+
+
+
+
+exports.gettotalDocument = async (req, res) => {
+  try {
+    const result = await adminDAL.gettotalDocument();
+    res.send(result);
+  } catch (e) {
+    res.status(500).send(e);
+    throw e;
+  }
+};
+
+
+
+exports.disableUserData = async (req, res) => {
+  try {
+    console.log(req.query,'req.paramsreq.params')
+    const result = await adminDAL.disableUserData(req.query);
+    res.send(result);
+  } catch (e) {
+    res.status(500).send(e);
+    throw e;
+  }
+};
